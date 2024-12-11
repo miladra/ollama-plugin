@@ -44,14 +44,6 @@ class TranslateIcon {
         this.icon.src = chrome.runtime.getURL('src/icons/loading-spinner.gif');
         const selectedText = window.getSelection().toString().trim();
 
-        // if length of selected text is > 500, return error
-        if (selectedText.length > 500) {
-            alert('Selected text is too long. Please select less than 500 characters.');
-            this.hide();
-            this.icon.src = chrome.runtime.getURL('src/icons/icon.png');
-            return;
-        }
-
         if (selectedText) {
             chrome.runtime.sendMessage({ action: 'translateAndExplain', text: selectedText }, (response) => {
                 if (response.error) {

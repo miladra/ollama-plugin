@@ -1,10 +1,10 @@
-Privacy Policy for ChatGPTranslate
+Privacy Policy for ollama-plugin
 
 Effective Date: 6/16/2024
 
 1. Introduction
 
-ChatGPTranslate ("the Extension") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our Extension.
+ollama-plugin ("the Extension") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our Extension.
 
 2. Information We Collect
 

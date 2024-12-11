@@ -1,7 +1,7 @@
 class OpenAIService {
     constructor() {
-        this.apiUrl = 'https://api.openai.com/v1/chat/completions';
-        this.ttsApiUrl = 'https://api.openai.com/v1/audio/speech';
+        this.apiUrl = 'http://localhost:11434/v1/chat/completions';
+        this.ttsApiUrl = 'http://localhost:11434/v1/chat/completions';
     }
 
     async getAPIKey() {
@@ -25,18 +25,13 @@ class OpenAIService {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'gpt-4o',
-                messages: messages,
-                max_tokens: 100
+                model: 'aya:latest',
+                messages: messages
             })
         });
 
         const data = await response.json();
-        if (response.ok) {
-            return data.choices[0].message.content.trim();
-        } else {
-            throw new Error(data.error.message || 'Error fetching data from OpenAI');
-        }
+        return data.choices[0].message.content.trim();
     }
 
     async getTextToSpeechDataUrl(text) {
@@ -72,8 +67,9 @@ class OpenAIService {
 
     async translateText(text) {
         const messages = [
-            { role: 'system', content: 'You are a helpful assistant that translates text.' },
-            { role: 'user', content: `Translate the following text to English:\n\n"${text}"` }
+            { role: 'system', content: 'You are a helpful assistant' },
+            { role: 'user', content: `Rephrase following text to sound more natural to a native English speaker while maintaining its meaning accurately, do not explain what you did::\n\n"${text}"` }
+           // { role: 'user', content: `Think about the following text and Explain it in simple English. Make sure you are accurate.:\n\n"${text}"` }
         ];
         const result = await this.callOpenAI(messages);
         return { translation: result || "Translation not available" };
@@ -81,8 +77,10 @@ class OpenAIService {
 
     async fetchExplanation(text) {
         const messages = [
-            { role: 'system', content: 'You are a helpful assistant that provides explanations.' },
-            { role: 'user', content: `Provide a short explanation for the following text in English: \n\n"${text}"` }
+            { role: 'system', content: 'You are a helpful assistant' },
+            //{ role: 'user', content: `Think about the following text, make sure you understand it, then translate it to fluent Persian: \n\n"${text}".\n Do not explain` }
+            //{ role: 'user', content: `Translate following text to Persian. Make sure you are accurate. Do not explain. the text is: \n\n"${text}"` }
+            { role: 'user', content: `Translate following text to Persian while maintaining its meaning, do not explain what you did: The text is: \n\n"${text}"` }
         ];
         const result = await this.callOpenAI(messages);
         return { explanation: result || "Explanation not available" };

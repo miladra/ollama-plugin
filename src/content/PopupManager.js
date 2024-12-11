@@ -23,7 +23,7 @@ class PopupManager {
         const translationSection = document.createElement('div');
         translationSection.className = 'translation-section';
         translationSection.innerHTML = `
-            <div class="translation"><p><strong>Translation:</strong> ${translation}</p></div>
+            <div class="translation"><p>${translation}</p></div>
             <div class="pronunciation">
                 <img src="${chrome.runtime.getURL('src/icons/speaker.png')}" alt="Play translation" id="ttsIcon">
             </div>
@@ -36,7 +36,7 @@ class PopupManager {
 
         if (alwaysDisplayExplanation) {
             const explanation = await this.fetchExplanation(selectedText);
-            popup.innerHTML += `<div class="explanation"><p><strong>Explanation:</strong> ${explanation}</p></div>`;
+            popup.innerHTML += `<div class="explanation" dir="rtl"><p>${explanation}</p></div>`;
         } else {
             const explanationLink = document.createElement('a');
             explanationLink.href = '#';
@@ -45,7 +45,7 @@ class PopupManager {
                 event.preventDefault();
                 const explanation = await this.fetchExplanation(selectedText);
                 const explanationParagraph = document.createElement('p');
-                explanationParagraph.innerHTML = `<div class="explanation"><strong>Explanation:</strong> ${explanation}</div>`;
+                explanationParagraph.innerHTML = `<div class="explanation" dir="rtl">${explanation}</div>`;
                 popup.appendChild(explanationParagraph);
                 explanationLink.style.display = 'none';
             });

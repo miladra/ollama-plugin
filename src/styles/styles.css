@@ -18,7 +18,7 @@
 
 #translation-popup p strong {
   font-weight: bold;
-  color: #333;
+  color: black;
 }
 
 #translation-popup a {
@@ -49,6 +49,7 @@
 #translation-popup .translation {
   padding-right: 10px;
   width: 95%;
+  color: #000;
 }
 
 .translation-section .pronunciation {
